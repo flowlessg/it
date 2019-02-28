@@ -1,0 +1,8 @@
+#!/bin/bash
+read -p "Please input a username: " user
+if [ "$user" = "" ];then    # 当什么都不输的时候则退出程序
+        echo "bye~"
+        exit
+fi
+usid=`awk '/'$user'/{print NR}' /home/passwd` #钝号和逗号
+awk -F ":" 'BEGIN{cmd="userdel"}{if(NR=='$usid'){user=$1;system(cmd" "user)}}' /etc/passwd ##awk中的变量要加单引号
